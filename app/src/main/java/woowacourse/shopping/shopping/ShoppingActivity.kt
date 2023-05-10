@@ -2,6 +2,8 @@ package woowacourse.shopping.shopping
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,6 +33,22 @@ class ShoppingActivity : AppCompatActivity(), ShoppingContract.View {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_shopping)
 
         presenter.loadProducts()
+
+        setSupportActionBar(binding.toolbarShopping)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_cart, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.cart -> {
+                startActivity(Intent(this, ShoppingCartActivity::class.java))
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun setUpShoppingView(
@@ -47,9 +65,6 @@ class ShoppingActivity : AppCompatActivity(), ShoppingContract.View {
                 ShoppingRecyclerSpanSizeManager(shoppingRecyclerAdapter::getItemViewType)
         }
         binding.productRecyclerView.adapter = shoppingRecyclerAdapter
-        binding.imgShoppingCart.setOnClickListener {
-            startActivity(Intent(this, ShoppingCartActivity::class.java))
-        }
     }
 
     override fun refreshShoppingView(

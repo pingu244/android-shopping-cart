@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import woowacourse.shopping.R
 import woowacourse.shopping.databinding.ItemShoppingCartBinding
 import woowacourse.shopping.model.ProductUiModel
 
@@ -21,7 +22,7 @@ class ShoppingCartItemViewHolder(
                 .into(imageProduct)
 
             textProductName.text = productUiModel.name
-            textProductPrice.text = productUiModel.price.toString()
+            textProductPrice.text = binding.root.context.getString(R.string.product_price, productUiModel.price)
             imageRemoveProduct.setOnClickListener { onRemoveClicked(adapterPosition) }
         }
     }
